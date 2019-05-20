@@ -1,0 +1,21 @@
+{
+  "name": "takanawa",
+  "version": "1.0.0",
+  "description": "Scrapbox Slack Notification Gateway",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "scrapbox",
+    "slack",
+    "google apps script"
+  ],
+  "author": "june29",
+  "license": "ISC",
+  "dependencies": {
+    "@google/clasp": "^2.1.0",
+    "@types/google-apps-script": "0.0.48",
+    "@types/node": "^12.0.2",
+    "tslint": "^5.16.0"
+  }
+}
