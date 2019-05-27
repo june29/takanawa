@@ -42,7 +42,7 @@ function postToSlack(options) {
 }
 
 function fetchPageText(title) : string {
-  const url = `https://${SCRAPBOX_HOST}/api/pages/${SCRAPBOX_PROJECT}/${title}/text`;
+  const url = `https://${SCRAPBOX_HOST}/api/pages/${SCRAPBOX_PROJECT}/${encodeURIComponent(title)}/text`;
   const headers = { 'Cookie' : 'connect.sid=' + SCRAPBOX_COOKIE };
   const response = UrlFetchApp.fetch(url, { method: "get", headers : headers });
 
