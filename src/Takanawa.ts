@@ -5,9 +5,9 @@ const SCRAPBOX_COOKIE = property.getProperty("SCRAPBOX_COOKIE");
 const SLACK_WEBHOOK_URL = property.getProperty("SLACK_WEBHOOK_URL");
 
 function doPost(event) {
-  console.log(event);
-
   const postData = JSON.parse(event.postData.getDataAsString());
+
+  console.log({ postData: postData });
 
   for (var i = 0; i < postData.attachments.length; i++) {
     const attachment = postData.attachments[i];
