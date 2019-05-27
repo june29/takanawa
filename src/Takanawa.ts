@@ -5,6 +5,8 @@ const SCRAPBOX_COOKIE = property.getProperty("SCRAPBOX_COOKIE");
 const SLACK_WEBHOOK_URL = property.getProperty("SLACK_WEBHOOK_URL");
 
 function doPost(event) {
+  console.log(event);
+
   const postData = JSON.parse(event.postData.getDataAsString());
 
   for (var i = 0; i < postData.attachments.length; i++) {
@@ -35,6 +37,7 @@ function postToSlack(options) {
   }
 
   const response = UrlFetchApp.fetch(SLACK_WEBHOOK_URL, { method: 'post', payload: JSON.stringify(payload) });
+
   console.log({
     response: response,
     payload: payload
