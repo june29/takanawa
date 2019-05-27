@@ -13,8 +13,9 @@ function doPost(event) {
     const attachment = postData.attachments[i];
     const title = attachment.title;
     const body = fetchPageText(title);
+    const diff = attachment.rawText;
 
-    const channels = matchRules(title, body);
+    const channels = matchRules(title, body, diff);
 
     if (channels.length > 0) {
       for (var j = 0; j < channels.length; j++) {
@@ -52,7 +53,7 @@ function fetchPageText(title) : string {
   return response.getContentText();
 }
 
-function matchRules(title : string, body : string) : Array<string> {
+function matchRules(title : string, body : string, diff : string) : Array<string> {
   const channels = [];
   const rules = loadRules();
 
@@ -70,6 +71,12 @@ function matchRules(title : string, body : string) : Array<string> {
         channels.push(rule.channel);
       }
     }
+
+    if (rule.diff.length > 0 && diff.indexOf(rule.diff) != -1) {
+      if (channels.indexOf(rule.channel) == -1) {
+        channels.push(rule.channel);
+      }
+    }
   }
 
   return channels;
@@ -80,14 +87,15 @@ function loadRules() {
   const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
 
   for (var i = 2; i <= sheet.getLastRow(); i++) {
-    const row = sheet.getRange(i, 1, 1, 3);
+    const row = sheet.getRange(i, 1, 1, 4);
     const values = row.getValues()[0];
 
     const title = values[0];
     const body = values[1];
-    const channel = values[2];
+    const diff = values[2];
+    const channel = values[3];
 
-    rules.push({ title: title, body: body, channel: channel });
+    rules.push({ title: title, body: body, diff: diff, channel: channel });
   }
 
   return rules;
